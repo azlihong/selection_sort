@@ -1,0 +1,77 @@
+#include <iostream>
+#include "SortTestHelper.h"
+
+using namespace std;
+template <typename T>
+void insertionSort_v1(T arr[], int n)
+{
+    for(int i=1;i<n;i++)
+    {
+        T e = arr[i];
+        int j;
+        for(j=i;j>0 && arr[j-1]>e;j--)
+            arr[j]  = arr[j-1];
+        arr[j] = e;
+
+
+    }
+}
+
+
+template <typename T>
+void insertionSort(T arr[],int n){
+
+    for(int i=1;i<n;i++)
+    {
+        for(int j=i;j>0;j--)
+        {
+            if (arr[j]<arr[j-1])
+            {
+                swap(arr[j],arr[j-1]);
+            }
+            else
+                break;
+        }
+    }
+
+
+}
+
+template<typename T>
+void selectionSort(T arr[], int n){
+
+    for(int i = 0 ; i < n ; i ++){
+
+        int minIndex = i;
+        for( int j = i + 1 ; j < n ; j ++ )
+            if( arr[j] < arr[minIndex] )
+                minIndex = j;
+
+        swap( arr[i] , arr[minIndex] );
+    }
+}
+
+int main() {
+
+    // 测试排序算法辅助函数
+    int N = 1000;
+    int *arr = SortTestHelper::generateRandomArray(N,0,1000);
+    int *arr4 = SortTestHelper::generateNearlyOrderedArray(1000,10);
+    int *arr2 = SortTestHelper::copyIntArray(arr,1000);
+    int *arr3 = SortTestHelper::copyIntArray(arr,1000);
+//    selectionSort(arr,N);
+//    SortTestHelper::printArray(arr,N);
+
+    SortTestHelper::testSort("Selection Sort: ",selectionSort,arr,N);
+    SortTestHelper::testSort("insert Sort: ",insertionSort,arr2,N);
+    SortTestHelper::testSort("insert Sort v1: ",insertionSort_v1,arr3,N);
+    SortTestHelper::testSort("insert Sort v1: ",insertionSort_v1,arr4,N);
+
+    delete[] arr;
+    delete[] arr2;
+    delete[] arr3;
+    delete[] arr4;
+    return 0;
+
+
+}
