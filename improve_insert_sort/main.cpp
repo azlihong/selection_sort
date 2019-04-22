@@ -3,6 +3,33 @@
 
 using namespace std;
 template <typename T>
+
+void bubbleSort(T arr[], int n)
+{
+    for(int i=0;i<n;i++)
+        for(int j=0;j<n-i-1;j++)
+        {
+            if(arr[j] > arr[j+1])
+                swap(arr[j],arr[j+1]);
+        }
+}
+
+template <typename T>
+void shellSort_v1(T arr[],int n)
+{
+    int gap = n/2;
+    for(gap; gap>0;gap=gap/2)
+        for(int i=gap;i<n;i++)
+        {  int j=i;
+            while(j-gap>=0 && arr[j]<arr[j-gap])
+            {
+                swap(arr[j],arr[j-gap]);
+                j-=gap;
+            }
+}}
+
+
+template <typename T>
 void insertionSort_v1(T arr[], int n)
 {
     for(int i=1;i<n;i++)
@@ -59,6 +86,8 @@ int main() {
     int *arr4 = SortTestHelper::generateNearlyOrderedArray(1000,10);
     int *arr2 = SortTestHelper::copyIntArray(arr,1000);
     int *arr3 = SortTestHelper::copyIntArray(arr,1000);
+    int *arr5 = SortTestHelper::copyIntArray(arr,1000);
+    int *arr6 = SortTestHelper::copyIntArray(arr,1000);
 //    selectionSort(arr,N);
 //    SortTestHelper::printArray(arr,N);
 
@@ -66,11 +95,15 @@ int main() {
     SortTestHelper::testSort("insert Sort: ",insertionSort,arr2,N);
     SortTestHelper::testSort("insert Sort v1: ",insertionSort_v1,arr3,N);
     SortTestHelper::testSort("insert Sort v1: ",insertionSort_v1,arr4,N);
+    SortTestHelper::testSort("bubble Sort: ",bubbleSort, arr5,N);
+    SortTestHelper::testSort("shell Sort Sort: ",shellSort_v1, arr6,N);
 
     delete[] arr;
     delete[] arr2;
     delete[] arr3;
     delete[] arr4;
+    delete[] arr5;
+    delete[] arr6;
     return 0;
 
 
